@@ -87,7 +87,7 @@
                 <div class="col-6 col-md-4 col-xl-3">
                     <div class="grid_item">
                         <figure>
-                            <a href="product-detail-1.html">
+                            <a href="{{ url('products-detail/' . $product['id']) }}">
                                 <img style="height: 250px;" class="img-fluid lazy"
                                     src="{{ asset($product['img_thumbnail']) }}" alt="">
                             </a>
@@ -96,15 +96,18 @@
                         <div class="rating"><i class="icon-star voted"></i><i class="icon-star voted"></i><i
                                 class="icon-star voted"></i><i class="icon-star voted"></i><i class="icon-star"></i>
                         </div>
-                        <a href="product-detail-1.html">
+                        <a href="{{ url('products-detail/' . $product['id']) }}">
                             <h3>{{ $product['name'] }}</h3>
                         </a>
                         <div class="price_box">
-                            <span class="new_price"></span>
+                            <span class="new_price">{{ number_format($product['price_sale'] ?: $product['price_regular']) }}
+                                VNĐ</span>
                         </div>
                         <ul>
-                            <li><a href="#0" class="tooltip-1" data-bs-toggle="tooltip" data-bs-placement="left"
-                                    title="Add to cart"><i class="ti-shopping-cart"></i><span>Add to cart</span></a>
+                            <li><a href="{{ url('cart/add') }}?quantity=1&productID={{ $product['id'] }}" class="tooltip-1"
+                                    data-bs-toggle="tooltip" data-bs-placement="left" title="Add to cart"><i
+                                        class="ti-shopping-cart"></i><span>Add
+                                        to cart</span></a>
                             </li>
                         </ul>
                     </div>
@@ -154,7 +157,7 @@
                     <div class="grid_item">
                         <span class="ribbon new">New</span>
                         <figure>
-                            <a href="product-detail-1.html">
+                            <a href="{{ url('products-detail/' . $product['id']) }}">
                                 <img class="owl-lazy" style ="height:250px;" src="{{ asset($product['img_thumbnail']) }}"
                                     data-src="{{ asset($product['img_thumbnail']) }}" alt="">
                             </a>
@@ -162,11 +165,13 @@
                         <div class="rating"><i class="icon-star voted"></i><i class="icon-star voted"></i><i
                                 class="icon-star voted"></i><i class="icon-star voted"></i><i class="icon-star"></i>
                         </div>
-                        <a href="product-detail-1.html">
+                        <a href="{{ url('products-detail/' . $product['id']) }}">
                             <h3>{{ $product['name'] }}</h3>
                         </a>
                         <div class="price_box">
-                            <span class="new_price">$110.00</span>
+                            <span
+                                class="new_price">{{ number_format($product['price_sale'] ?: $product['price_regular']) }}
+                                VNĐ</span>
                         </div>
                         <ul>
                             <li><a href="#0" class="tooltip-1" data-bs-toggle="tooltip" data-bs-placement="left"

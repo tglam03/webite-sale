@@ -30,16 +30,21 @@ class Model
 
         $this->queryBuilder = $this->conn->createQueryBuilder();
     }
+
+    public function getConnection()
+    {
+        return $this->conn;
+    }
     // CRUD
 
-     public function all()
-     {
-         return $this->queryBuilder
-             ->select('*')
-             ->from($this->tableName)
-             ->orderBy('id', 'desc')
-             ->fetchAllAssociative();
-     }
+    public function all()
+    {
+        return $this->queryBuilder
+            ->select('*')
+            ->from($this->tableName)
+            ->orderBy('id', 'desc')
+            ->fetchAllAssociative();
+    }
 
     public function count()
     {
@@ -101,7 +106,7 @@ class Model
             $query = $this->queryBuilder->update($this->tableName);
 
             $index = 0;
-            foreach($data as $key => $value) {
+            foreach ($data as $key => $value) {
                 $query->set($key, '?')->setParameter($index, $value);
 
                 ++$index;

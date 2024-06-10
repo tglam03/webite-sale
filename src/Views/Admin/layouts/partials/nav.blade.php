@@ -42,5 +42,38 @@
             </ul>
         </li>
 
+        <li class="mm-active">
+            <a class="has-arrow" href="#" aria-expanded="false">
+                <div class="icon_menu">
+                    <img src="{{ asset('assets/admin/img/menu-icon/dashboard.svg') }}" alt>
+                </div>
+                <span>Category</span>
+            </a>
+            <ul>
+                <li><a href="{{ url('admin/categorys') }}">Danh sách</a></li>
+                <li><a href="{{ url('admin/categorys/create') }}">Thêm mới</a></li>
+            </ul>
+        </li>
+        <li class="mm-active">
+            <a class="has-arrow" href="#" aria-expanded="false">
+                <div class="icon_menu">
+                    <img src="{{ asset('assets/admin/img/menu-icon/dashboard.svg') }}" alt>
+                </div>
+                <span>List Order</span>
+            </a>
+            <ul>
+                <li><a href="{{ url('admin/') }}">Danh sách</a></li>
+            </ul>
+        </li>
+
+        <li class="mm-active">
+            <a href="{{ url('') }}" aria-expanded="false">
+                <div class="icon_menu">
+                    <img src="{{ asset('assets/admin/img/menu-icon/dashboard.svg') }}" alt>
+                </div>
+                <span>Back to Client</span>
+            </a>
+        </li>
+
     </ul>
 </nav>

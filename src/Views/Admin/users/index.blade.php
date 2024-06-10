@@ -40,6 +40,7 @@
                                     <th>EMAIL</th>
                                     <th>CREATED AT</th>
                                     <th>UPDATED AT</th>
+                                    <th>TYPE</th>
                                     <th>ACTION</th>
                                 </tr>
                             </thead>
@@ -55,6 +56,8 @@
                                         <td><?= $user['email'] ?></td>
                                         <td><?= $user['created_at'] ?></td>
                                         <td><?= $user['updated_at'] ?></td>
+                                        <td><?= $user['type'] ?>
+                                        </td>
                                         <td>
 
                                             <a class="btn btn-info"

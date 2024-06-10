@@ -42,11 +42,13 @@
                             <thead>
                                 <tr>
                                     <th>ID</th>
-                                    <th>IMG THUMBNAIL</th>
-                                    <th>NAME</th>
+                                    <th>Image Thumbnail</th>
+                                    <th>Name</th>
                                     <th>Category Name</th>
-                                    <th>CREATED AT</th>
-                                    <th>UPDATED AT</th>
+                                    <th>Price Regular</th>
+                                    <th>Price Sale</th>
+                                    <th>Created At</th>
+                                    <th>Updated At</th>
                                     <th>ACTION</th>
                                 </tr>
                             </thead>
@@ -60,6 +62,8 @@
                                         </td>
                                         <td>{{ $product['name'] }}</td>
                                         <td>{{ $product['c_name'] }}</td>
+                                        <td>{{ $product['price_regular'] }}</td>
+                                        <td>{{ $product['price_sale'] }}</td>
                                         <td>{{ $product['created_at'] }}</td>
                                         <td>{{ $product['updated_at'] }}</td>
                                         <td>
@@ -77,7 +81,7 @@
                             </tbody>
                         </table>
                     </div>
-                    
+
                 </div>
             </div>
         </div>

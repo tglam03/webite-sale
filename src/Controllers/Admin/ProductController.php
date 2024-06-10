@@ -26,6 +26,7 @@ class ProductController extends Controller
     {
         // $products = $this->product->all();
         [$products, $totalPage] = $this->product->paginate();
+        // Helper::debug($products);
         //truyền tên thư mục sau đó truyền tên file, sau đó dùng dấu chấm để chia tầng
         $this->renderViewAdmin('products.index', [
             'products' => $products,
@@ -54,6 +55,7 @@ class ProductController extends Controller
         $validation = $validator->make($_POST + $_FILES, [
             'category_id'   => 'required',
             'name'          => 'required',
+            'price_regular' => 'required',
             'overview'      => 'max:500', // giới hạn 500 từ
             'content'       => 'max:65000',
             'img_thumbnail' => 'uploaded_file:0,2M,png,jpg,jpeg',
@@ -73,10 +75,14 @@ class ProductController extends Controller
             $data = [
                 'category_id'   => $_POST['category_id'],
                 'name'          => $_POST['name'],
+                'price_regular' => $_POST['price_regular'],
+                'price_sale'    => $_POST['price_sale'] ?: 0,
                 'overview'      => $_POST['overview'],
                 'content'       => $_POST['content'],
                 'img_thumbnail' => $_FILES['img_thumbnail'],
             ];
+
+            // Helper::debug($data);
 
             if (!empty($_FILES['img_thumbnail']) && $_FILES['img_thumbnail']['size'] > 0) {
 
@@ -150,6 +156,8 @@ class ProductController extends Controller
                 'category_id'   => $_POST['category_id'],
                 'name'          => $_POST['name'],
                 'overview'      => $_POST['overview'],
+                'price_regular' => $_POST['price_regular'],
+                'price_sale'    => $_POST['price_sale'],
                 'content'       => $_POST['content'],
                 'updated_at'    => date('Y-m-d H:i:s')
             ];

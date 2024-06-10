@@ -1,6 +1,5 @@
 <?php
 
-
 namespace Tunglam\BasicPhp2\Models;
 
 use Tunglam\BasicPhp2\Commons\Model;
@@ -11,45 +10,18 @@ class Product extends Model
     protected string $tableName = 'products';
 
     // hiển thị tên danh mục 
-    public function all()
+    public function allsanphamcungloai($id, $category_id)
     {
         return $this->queryBuilder
-            ->select(
-                'p.id',
-                'p.category_',
-                'p.name',
-                'p.img_thumbnail',
-                'p.price',
-                'p.created_at',
-                'p.updated_at',
-                'c.name as c_name'
-            )
-            ->from($this->tableName, 'p')
-            ->innerJoin('p', 'categories', 'c', 'c.id = p.category_id')
-            ->orderBy('p.id', 'desc')
+            ->select('*')
+            ->from($this->tableName)
+            ->where('id <> ?')  // Sử dụng dấu <>
+            ->andWhere('category_id = ?')  // Sử dụng dấu =
+            ->setParameter(0, $id)
+            ->setParameter(1, $category_id)
             ->fetchAllAssociative();
     }
-    public function findByID($id)
-    {
-        return $this->queryBuilder
-            ->select(
-                'p.id',
-                'p.category_id',
-                'p.name',
-                'p.img_thumbnail',
-                'p.price',
-                'p.overview',
-                'p.content',
-                'p.created_at',
-                'p.updated_at',
-                'c.name as c_name'
-            )
-            ->from($this->tableName, 'p')
-            ->innerJoin('p', 'categories', 'c', 'c.id = p.category_id')
-            ->where('p.id = ?')
-            ->setParameter(0, $id)
-            ->fetchAssociative();
-    }
+
 
     public function paginate($page = 1, $perPage = 5)
     {
@@ -59,20 +31,6 @@ class Product extends Model
 
         $offSet = $perPage * ($page - 1);
 
-        // perPage số lượng bản ghi muốn lấy ra
-        // với page = 1
-        // 1 -> 0 () đếm theo vị trí index
-        // 2
-        // 3
-        // 4 
-        // 5 -> 4 ( offSet = 4 )
-
-        // với page = 2
-        // 6 -> 5 ()
-        // 7
-        // 8
-        // 9 
-        // 10 -> 9 ( offSet =  9)
 
         $data = $queryBuilder
             ->select(
@@ -80,7 +38,8 @@ class Product extends Model
                 'p.category_id',
                 'p.name',
                 'p.img_thumbnail',
-                'p.price',
+                'p.price_regular',
+                'p.price_sale',
                 'p.created_at',
                 'p.updated_at',
                 'c.name as c_name'

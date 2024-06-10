@@ -6,6 +6,7 @@ use eftec\bladeone\BladeOne;
 
 class Controller
 {
+
     protected function renderViewClient($view, $data = [])
     {
         $templatePath = __DIR__ . '/../Views/Client';

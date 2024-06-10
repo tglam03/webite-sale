@@ -12,10 +12,28 @@
 // DELETE -> USER/ID      -> functon: DELETE($id) -> Xoa ban ghi trong db
 
 use Tunglam\BasicPhp2\Controllers\Admin\UserController;
-use Tunglam\BasicPhp2\Controllers\Client\ProductController;
+use Tunglam\BasicPhp2\Controllers\Admin\ProductController;
+use Tunglam\BasicPhp2\Controllers\Admin\CategoryController;
 use Tunglam\BasicPhp2\Controllers\Admin\DashboardController;
 
+// check dang nhap
+$router->before('GET|POST', '/admin/*.*', function () {
+    middleware_auth();
+});
+
+$router->before('GET|POST', '/admin/*.*', function () {
+
+    if (!is_logged()) {
+        header('Location: ' . url('login'));
+    }
+    if (!is_admin()) {
+        header('Location: ' . url(''));
+    }
+});
+
 $router->mount('/admin', function () use ($router) {
+
+
 
     $router->get('/',  DashboardController::class . '@dashboard');
 
@@ -26,7 +44,7 @@ $router->mount('/admin', function () use ($router) {
         $router->post('/store',         UserController::class . '@store');
         $router->get('/{id}/edit',      UserController::class . '@edit');
         $router->post('/{id}/update',   UserController::class . '@update');
-        $router->post('/{id}/delete',   UserController::class . '@delete');
+        $router->get('/{id}/delete',   UserController::class . '@delete');
         $router->get('/{id}/show',      UserController::class . '@show');
     });
 
@@ -39,5 +57,16 @@ $router->mount('/admin', function () use ($router) {
         $router->get('/{id}/edit',     ProductController::class  . '@edit');
         $router->post('/{id}/update',  ProductController::class  . '@update');
         $router->get('/{id}/delete',   ProductController::class  . '@delete');
+    });
+
+    $router->mount('/categorys', function () use ($router) {
+
+        $router->get('/',              CategoryController::class  . '@index');
+        $router->get('/create',        CategoryController::class  . '@create'); // Show form thêm mới
+        $router->post('/store',        CategoryController::class  . '@store'); // Lưu mới vào DB
+        $router->get('/{id}/show',     CategoryController::class  . '@show');
+        $router->get('/{id}/edit',     CategoryController::class  . '@edit');
+        $router->post('/{id}/update',  CategoryController::class  . '@update');
+        $router->get('/{id}/delete',   CategoryController::class  . '@delete');
     });
 });

@@ -9,15 +9,20 @@ use Tunglam\BasicPhp2\Commons\Controller;
 
 class ProductController extends Controller
 {
+    protected Product $product;
+
+    public function __construct()
+    {
+        $this->product = new Product();
+    }
     public function products()
     {
-        $product = new Product();
         $page = $_GET['page'] ?? 1;
         if ($page <= 0) {
             header('Location:' . url('products'));
             exit;
         }
-        [$products, $totalPage] = $product->paginate($page, 8);
+        [$products, $totalPage] = $this->product->paginate($page, 8);
         // Helper::debug($products);
         $this->renderViewClient('products.listProducts', [
             'products' => $products,

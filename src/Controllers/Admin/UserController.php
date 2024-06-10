@@ -53,6 +53,8 @@ class UserController extends Controller
             $data = [
                 'name'     => $_POST['name'],
                 'email'    => $_POST['email'],
+                'type'    => $_POST['type'],
+
                 'password' => password_hash($_POST['password'], PASSWORD_DEFAULT),
             ];
 
@@ -121,6 +123,7 @@ class UserController extends Controller
             $data = [
                 'name'     => $_POST['name'],
                 'email'    => $_POST['email'],
+                'type'     => $_POST['type'] ?? $user['type'],
                 'password' => !empty($_POST['password'])
                     ? password_hash($_POST['password'], PASSWORD_DEFAULT) : $user['password'],
             ];
@@ -163,17 +166,25 @@ class UserController extends Controller
 
     public function delete($id)
     {
-        $user = $this->user->findByID($id);
 
-        $this->user->delete($id);
+        try {
 
-        if (
-            $user['avatar']
-            && file_exists(PATH_ROOT . $user['avatar'])
-        ) {
-            unlink(PATH_ROOT . $user['avatar']);
+            $user = $this->user->findByID($id);
+
+            $this->user->delete($id);
+
+            if (
+                $user['avatar']
+                && file_exists(PATH_ROOT . $user['avatar'])
+            ) {
+                unlink(PATH_ROOT . $user['avatar']);
+            }
+            $_SESSION['status'] = true;
+            $_SESSION['msg'] = 'Thao tác thành công!';
+        } catch (\Throwable $th) {
+            $_SESSION['status'] = false;
+            $_SESSION['msg'] = 'Thao tác không thành công!';
         }
-
         header('Location: ' . url('admin/users'));
         exit();
     }
